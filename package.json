@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "lint": "eslint src --ext .ts --fix",
     "build": "tsup src",
-    "start": "node dist/index.js",
+    "start": "node dist/index.cjs",
     "vercel-build": "npx prisma generate & npx prisma migrate deploy"
   },
   "keywords": [],
