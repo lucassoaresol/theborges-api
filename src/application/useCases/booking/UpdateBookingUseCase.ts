@@ -55,7 +55,7 @@ export class UpdateBookingUseCase {
   }
 
   private getFormattedDate(startDateTime: Dayjs): string {
-    const now = dayLib();
+    const now = dayLib().tz('America/Fortaleza');
 
     if (startDateTime.isSame(now, 'day')) {
       return `hoje às ${startDateTime.format('HH:mm')}`;

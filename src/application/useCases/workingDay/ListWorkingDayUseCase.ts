@@ -52,7 +52,7 @@ export class ListWorkingDayUseCase {
       orderBy: { date: 'asc' },
     });
 
-    const now = dayLib();
+    const now = dayLib().tz('America/Fortaleza');
     const totalMinutes = now.hour() * 60;
 
     const workingDaysWithBookings = await Promise.all(

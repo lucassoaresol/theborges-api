@@ -36,7 +36,9 @@ export class ListFreeTimeSlotsUseCase {
     isIgnoreBreak,
   }: IInput): Promise<IOutput> {
     const freeSlots: string[] = [];
-    const now = dayLib().add(isAuthenticated ? 0 : 15, 'minute');
+    const now = dayLib()
+      .tz('America/Fortaleza')
+      .add(isAuthenticated ? 0 : 15, 'minute');
     const dateDayStart = dayLib(date).startOf('day');
 
     isIgnoreBreak = isAuthenticated && isIgnoreBreak;

@@ -18,7 +18,7 @@ interface IWorkingTime {
 
 export class UpdateWorkingDayUseCase {
   async execute({ end, professionalId, start }: IInput): Promise<IOutput> {
-    const today = dayLib().startOf('day');
+    const today = dayLib().tz('America/Fortaleza').startOf('day');
 
     this.validateInput(start, end);
 
@@ -65,7 +65,7 @@ export class UpdateWorkingDayUseCase {
     newBreak: { start: number; end: number },
   ) {
     const { breaks } = times;
-    const today = dayLib().startOf('day');
+    const today = dayLib().tz('America/Fortaleza').startOf('day');
 
     const updatedBreaks = breaks.map((brk) => {
       const breakStart = today.add(brk.start, 'm');
