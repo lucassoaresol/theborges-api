@@ -13,7 +13,12 @@ interface IInput {
 }
 
 interface IOutput {
-  result: string[];
+  result: IFreeSlot[];
+}
+
+interface IFreeSlot {
+  display: string;
+  total: number;
 }
 
 interface ITimeSlot {
@@ -35,7 +40,7 @@ export class ListFreeTimeSlotsUseCase {
     isAuthenticated,
     isIgnoreBreak,
   }: IInput): Promise<IOutput> {
-    const freeSlots: string[] = [];
+    const freeSlots: IFreeSlot[] = [];
     const now = dayLib()
       .tz('America/Fortaleza')
       .add(isAuthenticated ? 0 : 15, 'minute');
@@ -139,7 +144,7 @@ export class ListFreeTimeSlotsUseCase {
   }
 
   private findFreeTimeSlots(
-    freeSlots: string[],
+    freeSlots: IFreeSlot[],
     shift: ITimeSlot,
     occupiedSlots: ITimeSlot[],
     now: Dayjs,
@@ -179,7 +184,10 @@ export class ListFreeTimeSlotsUseCase {
       if (conflictingSlot) {
         currentStart = conflictingSlot.end;
       } else {
-        freeSlots.push(currentStart.format('HH:mm'));
+        freeSlots.push({
+          display: currentStart.format('HH:mm'),
+          total: currentStart.hour() * 60 + currentStart.minute(),
+        });
         currentStart = currentStart.add(requiredMinutes, 'minute');
       }
     }
